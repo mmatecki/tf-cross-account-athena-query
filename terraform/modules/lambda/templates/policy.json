@@ -1,0 +1,41 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject"
+      ],
+      "Resource": "${spillBucket}/*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "glue:BatchGetPartition",
+        "glue:GetDatabase",
+        "glue:GetDatabases",
+        "glue:GetPartition",
+        "glue:GetPartitions",
+        "glue:GetTable",
+        "glue:GetTables",
+        "glue:GetTableVersion",
+        "glue:GetTableVersions"
+      ],
+      "Resource": [
+        "arn:aws:glue:eu-west-1:${targetAccount}:catalog",
+        "arn:aws:glue:eu-west-1:${targetAccount}:database/trusted_data_layer",
+        "arn:aws:glue:eu-west-1:${targetAccount}:table/trusted_data_layer/*"
+      ],
+      "Effect": "Allow"
+    }
+  ]
+}
